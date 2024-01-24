@@ -34,15 +34,24 @@ dblistTitle.place(relx=0, rely=0)
 
 
 # Input Area
-dbInput = customtkinter.CTkEntry(
+dbInputFrame = customtkinter.CTkFrame(
     master=app,
     width=1300,
     height=350,
     corner_radius=10,
-    placeholder_text="Enter SQL",
-    font=("Seriff", 15)
 )
-dbInput.place(relx=0.15, rely=0.02)
+dbInputEntry = customtkinter.CTkEntry(
+    master=dbInputFrame,
+    width=1300,
+    height=350,
+    corner_radius=10,
+    placeholder_text="Enter Database Name",
+    font=("Seriff", 15),
+    justify=customtkinter.LEFT,
+)
+
+dbInputEntry.place(relx=0, rely=0, anchor="nw")
+dbInputFrame.place(relx=0.15, rely=0.02)
 
 
 
