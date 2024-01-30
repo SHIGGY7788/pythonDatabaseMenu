@@ -19,25 +19,27 @@ else:
     sys.exit("Could not connect to database")
 
 active_databases = []
+cleaned_databases = []
 bad_chars = ["(", ")", ","]
 
 
 def run():
     dbInput = dbInputEntry.get("0.0", "end")
-    print(dbInput)
-    dbOutput = dbInput
+    cursor.execute(dbInput)
     dbOutputEntry.configure(state="normal")
     dbOutputEntry.delete("0.0", "end")
-    dbOutputEntry.insert("0.0", dbOutput)
+    for x in cursor:
+        dbOutputEntry.insert("0.0", f'{x}\n')
     dbOutputEntry.configure(state="disabled")
     dbInputEntry.delete("0.0", "end")
+    listDatabases()
 
 
 def listDatabases():
     dblistText.configure(state="normal")
+    active_databases = []
 
     cursor.execute("SHOW DATABASES")
-
     dblistText.delete("0.0", "end")
     for x in cursor:
         active_databases.append(x)
@@ -48,6 +50,8 @@ def listDatabases():
     for i in cleaned_databases:
         dblistText.insert("end", f"{i} \n")
     dblistText.configure(state="disabled")
+    print("Got Database list")
+
 
 
 # App Setup
